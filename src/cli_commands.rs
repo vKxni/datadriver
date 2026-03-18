@@ -1,9 +1,9 @@
 use crate::entry::{format_row, show_info, Entry};
 use crate::explorer::open_with_default;
 use crate::explorer::{open_in_explorer, preview_file};
-use crate::utils::{CLR_BOLD, CLR_CYAN, CLR_RESET, prompt_confirm};
-use std::path::PathBuf;
+use crate::utils::{prompt_confirm, CLR_BOLD, CLR_CYAN, CLR_RESET};
 use crate::writer::write_csv_report;
+use std::path::PathBuf;
 
 pub fn reprint(entries: &[Entry], width_path: usize) {
     for e in entries {
@@ -152,10 +152,7 @@ pub fn showcase_stats(entries: &[Entry]) {
 
     let num_files = total - num_dirs;
 
-    let largest = entries
-        .iter()
-        .filter(|e| !e.is_dir)
-        .max_by_key(|e| e.size);
+    let largest = entries.iter().filter(|e| !e.is_dir).max_by_key(|e| e.size);
 
     let oldest = entries.iter().min_by_key(|e| e.accessed);
     let newest = entries.iter().max_by_key(|e| e.accessed);
