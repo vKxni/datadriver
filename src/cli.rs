@@ -81,7 +81,7 @@ pub fn run_interactive(mut entries: Vec<Entry>, root: PathBuf, _width_path: usiz
             "w" => save_csv(&entries, &parts),
             "rc" => hot_reload(),
             "clear" => clear_screen(),
-            _ => println!("Unknown command. Type 'hhhhh' for list."),
+            _ => println!("Unknown command. Type 'h' for list."),
         }
         // reassign indices after modifications
         for (i, e) in entries.iter_mut().enumerate() {
