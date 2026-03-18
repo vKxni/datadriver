@@ -7,7 +7,8 @@ use std::io::{self, Write};
 use std::path::PathBuf;
 
 use crate::cli_commands::{
-    delete_file, filter_entries, open_scan_root, open_with_id, preview_content, reprint, display_info, save_csv, showcase_stats
+    delete_file, display_info, filter_entries, open_scan_root, open_with_id, preview_content,
+    reprint, save_csv, showcase_stats,
 };
 
 pub fn interactive_help() {
