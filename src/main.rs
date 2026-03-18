@@ -1,4 +1,3 @@
-mod csv;
 mod cli;
 mod entry;
 mod explorer;
