@@ -2,7 +2,6 @@ use crate::entry::Entry;
 use crate::utils::clear_screen;
 use crate::utils::human_age_secs;
 use crate::utils::CLR_GREEN;
-use std::fs;
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
 use std::sync::mpsc;

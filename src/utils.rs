@@ -40,7 +40,7 @@ pub const CLR_BOLD: &str = "\x1B[1m";
 pub const CLR_GREEN: &str = "\x1B[32m";
 pub const CLR_YELLOW: &str = "\x1B[33m";
 pub const CLR_CYAN: &str = "\x1B[36m";
-pub const CLR_RED: &str = "\x1B[31m";
+// pub const CLR_RED: &str = "\x1B[31m";
 
 pub fn sys_time_to_secs(t: SystemTime) -> u64 {
     match t.duration_since(UNIX_EPOCH) {
@@ -83,4 +83,35 @@ pub fn prompt_confirm(msg: &str) -> bool {
         return t == "y" || t == "yes";
     }
     false
+}
+
+#[cfg(target_os = "windows")]
+pub fn hot_reload() {
+    println!("Recompiling...");
+    let status = std::process::Command::new("cargo")
+        .arg("build")
+        .status()
+        .expect("Failed to build");
+
+    if !status.success() {
+        eprintln!("Build failed.");
+        return;
+    }
+
+    println!("Restarting CLI in a new terminal...");
+    let _ = std::process::Command::new("cmd")
+        .args(&[
+            "/C",
+            "start",
+            "cmd",
+            "/K",
+            &format!(
+                "{} {}",
+                std::env::args().next().unwrap(),
+                std::env::args().skip(1).collect::<Vec<_>>().join(" ")
+            ),
+        ])
+        .spawn();
+
+    std::process::exit(0);
 }
